@@ -13,6 +13,10 @@ namespace App1
         {
             InitializeComponent();
 
+            Plugin.Iconize.Iconize
+                .With(new Plugin.Iconize.Fonts.FontAwesomeRegularModule())
+                .With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
+
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }

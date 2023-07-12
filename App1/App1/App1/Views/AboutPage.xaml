@@ -4,12 +4,13 @@
              x:Class="App1.Views.AboutPage"
              xmlns:vm="clr-namespace:App1.ViewModels"
              xmlns:forms="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
+             xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
              Title="{Binding Title}">
-    
+
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -21,27 +22,24 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+        <StackLayout BackgroundColor="{StaticResource Accent}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40"
+                             VerticalOptions="FillAndExpand">
+                    <Image Source="xamarin_logo.png"
+                           VerticalOptions="Center"
+                           HeightRequest="64" />
                 </ContentView>
             </StackLayout>
         </StackLayout>
         <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="10,24,10,24" Spacing="10">
-                <Label Text="Start developing now" FontSize="Title"/>
-                <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="0,0,0,0"/>
-                <Label FontSize="16" Padding="0,24,0,0">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <FormattedString.Spans>
-                                <Span Text="Try the signature bellow "/> 
-                            </FormattedString.Spans>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-
+            <StackLayout Orientation="Vertical"
+                         Padding="10,24,10,24"
+                         Spacing="10">
 
                 <forms:SignaturePadView BackgroundColor="#EEE"
                                         HorizontalOptions="Fill"
@@ -58,7 +56,42 @@
                         Clicked="btn_Save_Clicked"
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" />
-                
+
+                <CollectionView HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                SelectionMode="None" 
+                                Margin="-7"
+                                ItemsSource="{Binding GridList}"
+                                x:Name="GridListCollection">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="3" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="2">
+                                <Frame Padding="5"
+                                       Margin="5"
+                                       CornerRadius="5"
+                                       BackgroundColor="Blue">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding TapCommand}" />
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <iconize:IconImage HeightRequest="20"
+                                                           IconColor="White"
+                                                           Icon="{Binding Icon}"
+                                                           WidthRequest="20" />
+                                        <Label Grid.Row="1"
+                                               TextColor="Wheat"
+                                               HorizontalTextAlignment="Center"
+                                               Text="{Binding Title}"></Label>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView >
             </StackLayout>
         </ScrollView>
     </Grid>
